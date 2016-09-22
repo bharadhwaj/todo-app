@@ -1,16 +1,8 @@
-// app/routes.js
-
-// load the todo model
 var Todo = require('./models/todo');
 
-// expose the routes to our app with module.exports
 module.exports = function(app) {
-
-    // api ---------------------------------------------------------------------
-    // get all todos
     app.get('/api/todos', function(req, res) {
 
-        // use mongoose to get all todos in the database
         Todo.find(function(err, todos) {
 
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
