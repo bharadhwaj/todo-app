@@ -2,15 +2,17 @@
 
     // set up ========================
     var express  = require('express');
-    var app      = express();                               // create our app w/ express
-    var mongoose = require('mongoose');                     // mongoose for mongodb
-    var morgan = require('morgan');             // log requests to the console (express4)
-    var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
+    var app      = express();                        // create our app w/ express
+    var mongoose = require('mongoose');              // mongoose for mongodb
+    var morgan   = require('morgan');                // log requests to the console (express4)
+    var bodyParser = require('body-parser');         // pull information from HTML POST (express4)
     var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+    var database = require('./config/database');
+    var port     = process.env.PORT || 8888;         // set the port
 
-    // configuration =================
 
-    mongoose.connect('mongodb://user:user@jello.modulusmongo.net:27017/Xu2ranon');     // connect to mongoDB database on modulus.io
+    // configuration ===============================================================
+    mongoose.connect(database.url);     // connect to mongoDB database on modulus.io
 
     app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
     app.use(morgan('dev'));                                         // log every request to the console
@@ -19,6 +21,9 @@
     app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
     app.use(methodOverride());
 
+    // routes ======================================================================
+    require('./app/routes.js')(app);
+
     // listen (start app with node server.js) ======================================
-    app.listen(8080);
-    console.log("App listening on port 8080");
+    app.listen(port);
+    console.log("App listening on port : " + port);
