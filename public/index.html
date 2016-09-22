@@ -1,68 +1,95 @@
-<!-- ASSIGN OUR ANGULAR MODULE -->
 <html ng-app="bogoTodo">
 <head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Node/Angular Todo App</title>
+  <title>To-Do App</title>
 
-    <!-- SCROLLS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
-    <style>
-        html                    { overflow-y:scroll; }
-        body                    { padding-top:50px; }
-        #todo-list              { margin-bottom:30px; }
-    </style>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script><!-- load angular -->
-    <script src="js/core.js"></script>
-    <script src="js/controllers/main.js"></script> <!-- load up our controller -->
-    <script src="js/services/todos.js"></script> <!-- load our todo service -->
-    <script src="js/core.js"></script> <!-- load our main application -->
+  <style type="text/css">
+    .strikethrough:checked + label {
+      text-decoration: line-through;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/controllers/main.js"></script>
+  <script src="js/services/todos.js"></script>
+  <script src="js/core.js"></script>
 
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
 <body ng-controller="mainController">
-    <div class="container">
+  
+  <div class="row">
+    <nav>
+      <div class="nav-wrapper teal">
+        <a href="/" class="brand-logo center">
+          <h4>To-Do List</h4>
+        </a>
+      </div>
+    </nav>
+  </div>
 
-        <!-- HEADER AND TODO COUNT -->
-        <div class="jumbotron text-center">
-            <h1>My Todo List <span class="label label-info">{{ todos.length }}</span></h1>
-        </div>
-
-        <!-- TODO LIST -->
-        <div id="todo-list" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-
-                <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                <div class="checkbox" ng-repeat="todo in todos">
-                    <label>
-                        <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
-                    </label>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- FORM TO CREATE TODOS -->
-        <div id="todo-form" class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
-                <form>
-                    <div class="form-group">
-
-                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                        <input type="text" class="form-control input-lg text-center" placeholder="I want to detect/capture dark matter" ng-model="formData.text">
-                    </div>
-
-                    <!-- createToDo() WILL CREATE NEW TODOS -->
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
-                </form>
-            </div>
-        </div>
-
+  <div class="container">
+    <div class="row">
+      <div class="col s4 offset-s4">
+      <ul class="collection grey">
+        <li class="collection-item avatar valign-wrapper">
+          <i class="material-icons circle">reorder</i>
+          <span class="title valign center-align"> 
+            <a><b> Total Number of Cards </b></a>
+            &nbsp;&nbsp;&nbsp;
+            <a><b> {{todos.length}} </b></a>
+          </span>
+        </li>
+      </ul>
+      </div>
     </div>
 
+    <div class="row">
+      <div class="col s6">
+        <div class="card grey lighten-5">
+          <div class="card-content">
+          <span class="card-title">Add your To-Do</span>
+          <hr> <br>
+          <form>
+            <div class="input-field">
+              <i class="material-icons prefix">list</i>
+              <input id="todo" type="text" class="validate" ng-model="formData.text">
+              <label for="last_name">Enter your To Do</label>
+            </div>
+            <div class="center-align">
+              <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="createTodo()" onclick="Materialize.toast('New card added successfully!', 2000)">
+                Add <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s6">
+        <div class="card grey lighten-5">
+          <div class="card-content">
+            <span class="card-title">Your To-Do's</span>
+            <hr> <br>
+            <div class="card-panel hoverable" ng-repeat="todo in todos">
+              <input type="checkbox" id="{todo._id}}" class="strikethrough" onclick="Materialize.toast('Marked as done!', 2000)"/>
+              <label for="{{todo._id}}">
+                <h7 id="todo-{{todo._id}}">{{ todo.text }}</h7>
+              </label>
+              <a href="" class="secondary-content">
+                <i class="material-icons" onclick="Materialize.toast('Card removed successfully!', 2000)" ng-click="deleteTodo(todo._id)">close</i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
