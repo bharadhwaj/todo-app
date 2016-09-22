@@ -78,7 +78,7 @@
             <span class="card-title">Your To-Do's</span>
             <hr> <br>
             <div class="card-panel hoverable" ng-repeat="todo in todos">
-              <input type="checkbox" id="{todo._id}}" class="strikethrough" onclick="Materialize.toast('Marked as done!', 2000)"/>
+              <input type="checkbox" id="{{todo._id}}" class="strikethrough" onclick="Materialize.toast('Marked as done!', 2000)"/>
               <label for="{{todo._id}}">
                 <h7 id="todo-{{todo._id}}">{{ todo.text }}</h7>
               </label>
