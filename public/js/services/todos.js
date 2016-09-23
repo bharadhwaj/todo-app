@@ -1,8 +1,14 @@
 angular.module('todoService', [])
     .factory('Todos', function($http) {
         return {
-            get : function() {
+            getAll : function() {
                 return $http.get('/todo/get-all');
+            },
+            getChecked : function() {
+                return $http.get('/todo/get-checked');
+            },
+            getUnchecked : function() {
+                return $http.get('/todo/get-unchecked');
             },
             add : function(todoData) {
                 return $http.post('/todo/add', todoData);

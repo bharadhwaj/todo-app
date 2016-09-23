@@ -3,11 +3,11 @@ var Todo = require('./models/todo');
 module.exports = function(app) {
 
     app.get('/todo/get-all', function(req, res) {
-
-        Todo.find(function(err, todos) {
+        
+        Todo.find(function(err, todo_all) {
             if (err)
                 res.send(err)
-            res.json(todos);
+            res.json(todo_all);
         });
 
     });
@@ -16,10 +16,10 @@ module.exports = function(app) {
 
         Todo.find({
             done: true 
-        }, function(err, todos) {
+        }, function(err, todo_checked) {
             if (err)
                 res.send(err)
-            res.json(todos);
+            res.json(todo_checked);
         });
 
     });
@@ -28,10 +28,10 @@ module.exports = function(app) {
 
         Todo.find({
             done: false 
-        }, function(err, todos) {
+        }, function(err, todo_unchecked) {
             if (err)
                 res.send(err)
-            res.json(todos);
+            res.json(todo_unchecked);
         });
 
     });

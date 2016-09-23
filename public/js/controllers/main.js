@@ -2,11 +2,21 @@ angular.module('todoController', [])
     .controller('mainController', function($scope, $http, Todos) {
         $scope.formData = {};
 
-        Todos.get()
+        Todos.getAll()
             .success(function(data) {
-                $scope.todos = data;
+                $scope.todo_all = data;
             });
-            
+
+        Todos.getChecked()
+            .success(function(data) {
+                $scope.todo_checked = data;
+            });
+
+        Todos.getUnchecked()
+            .success(function(data) {
+                $scope.todo_unchecked = data;
+            });
+
         $scope.createTodo = function() {
             if (!$.isEmptyObject($scope.formData)) {
 
@@ -16,12 +26,30 @@ angular.module('todoController', [])
                         $scope.todos = data;
                     });
             }
+            Todos.getChecked()
+                .success(function(data) {
+                    $scope.todo_checked = data;
+                });
+
+            Todos.getUnchecked()
+                .success(function(data) {
+                    $scope.todo_unchecked = data;
+                });
         };
 
         $scope.checkTodo = function(id) {
             Todos.check(id)
                 .success(function(data) {
                     $scope.todos = data;
+                });
+            Todos.getChecked()
+                .success(function(data) {
+                    $scope.todo_checked = data;
+                });
+
+            Todos.getUnchecked()
+                .success(function(data) {
+                    $scope.todo_unchecked = data;
                 });
         };
 
@@ -30,12 +58,30 @@ angular.module('todoController', [])
                 .success(function(data) {
                     $scope.todos = data;
                 });
+            Todos.getChecked()
+                .success(function(data) {
+                    $scope.todo_checked = data;
+                });
+
+            Todos.getUnchecked()
+                .success(function(data) {
+                    $scope.todo_unchecked = data;
+                });
         };
 
         $scope.deleteTodo = function(id) {
             Todos.delete(id)
                 .success(function(data) {
                     $scope.todos = data;
+                });
+            Todos.getChecked()
+                .success(function(data) {
+                    $scope.todo_checked = data;
+                });
+
+            Todos.getUnchecked()
+                .success(function(data) {
+                    $scope.todo_unchecked = data;
                 });
         };
     });
