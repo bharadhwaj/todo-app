@@ -82,6 +82,6 @@ angular.module('todoController', [])
             Todos.getUnchecked()
                 .success(function(data) {
                     $scope.todo_unchecked = data;
-                });
+                }); 
         };
     });
