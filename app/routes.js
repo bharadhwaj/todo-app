@@ -1,22 +1,43 @@
 var Todo = require('./models/todo');
 
 module.exports = function(app) {
-    app.get('/api/todos', function(req, res) {
+
+    app.get('/todo/get-all', function(req, res) {
 
         Todo.find(function(err, todos) {
-
-            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
             if (err)
                 res.send(err)
-
-            res.json(todos); // return all todos in JSON format
+            res.json(todos);
         });
+
     });
 
-    // create todo and send back all todos after creation
-    app.post('/api/todos', function(req, res) {
+    app.get('/todo/get-checked', function(req, res) {
 
-        // create a todo, information comes from AJAX request from Angular
+        Todo.find({
+            done: true 
+        }, function(err, todos) {
+            if (err)
+                res.send(err)
+            res.json(todos);
+        });
+
+    });
+
+    app.get('/todo/get-unchecked', function(req, res) {
+
+        Todo.find({
+            done: false 
+        }, function(err, todos) {
+            if (err)
+                res.send(err)
+            res.json(todos);
+        });
+
+    });
+
+    app.post('/todo/add', function(req, res) {
+
         Todo.create({
             text : req.body.text,
             done : false
@@ -24,7 +45,6 @@ module.exports = function(app) {
             if (err)
                 res.send(err);
 
-            // get and return all the todos after you create another
             Todo.find(function(err, todos) {
                 if (err)
                     res.send(err)
@@ -34,15 +54,49 @@ module.exports = function(app) {
 
     });
 
-    // delete a todo
-    app.delete('/api/todos/:todo_id', function(req, res) {
+    app.get('/todo/check/:todo_id', function(req, res) {
+
+        Todo.where('_id', req.params.todo_id)
+            .update({
+                $set: { done: true }
+            }, function(err, todo) {
+            if (err)
+                res.send(err);
+
+            Todo.find(function(err, todos) {
+                if (err)
+                    res.send(err)
+                res.json(todos);
+            });
+        });
+
+    });
+
+     app.get('/todo/uncheck/:todo_id', function(req, res) {
+
+        Todo.where('_id', req.params.todo_id)
+            .update({
+                $set: { done: false }
+            }, function(err, todo) {
+            if (err)
+                res.send(err);
+
+            Todo.find(function(err, todos) {
+                if (err)
+                    res.send(err)
+                res.json(todos);
+            });
+        });
+
+    });
+
+    app.delete('/todo/remove/:todo_id', function(req, res) {
         Todo.remove({
             _id : req.params.todo_id
         }, function(err, todo) {
             if (err)
                 res.send(err);
 
-            // get and return all the todos after you create another
             Todo.find(function(err, todos) {
                 if (err)
                     res.send(err)

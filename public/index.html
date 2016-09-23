@@ -42,9 +42,9 @@
         <li class="collection-item avatar valign-wrapper">
           <i class="material-icons circle">view_list</i>
           <span class="title valign center-align"> 
-            <a><b> Total Number of Cards </b></a>
+            <a><b> Total Number of Cards
             &nbsp;&nbsp;&nbsp;
-            <a><b> {{todos.length}} </b></a>
+            {{todos.length}} </b></a>
           </span>
         </li>
       </ul>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="row">
-      <div class="col s6">
+      <div class="col s12">
         <div class="card grey lighten-5">
           <div class="card-content">
           <span class="card-title">Add a To-Do</span>
@@ -72,11 +72,31 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="row">
       <div class="col s6">
         <div class="card grey lighten-5">
           <div class="card-content">
             <span class="card-title">Your To-Do's</span>
+            <hr> <br>
+            <div class="card-panel hoverable" ng-repeat="todo in todos">
+              <input type="checkbox" id="{{todo._id}}" class="strikethrough" ng-click="checkTodo(todo._id)" onclick="//if($(this).is(':checked')) Materialize.toast('Marked as done!', 2000); else Materialize.toast('Marked as undone!', 2000);"/>
+              <label for="{{todo._id}}">
+                <h7 id="todo-{{todo._id}}">{{ todo.text }}</h7>
+              </label>
+              <a href="" class="secondary-content">
+                <i class="material-icons" onclick="Materialize.toast('Card removed successfully!', 2000)" ng-click="deleteTodo(todo._id)">close</i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col s6">
+        <div class="card grey lighten-5">
+          <div class="card-content">
+            <span class="card-title">Completed tasks</span>
             <hr> <br>
             <div class="card-panel hoverable" ng-repeat="todo in todos">
               <input type="checkbox" id="{{todo._id}}" class="strikethrough" onclick="if($(this).is(':checked')) Materialize.toast('Marked as done!', 2000); else Materialize.toast('Marked as undone!', 2000);"/>
@@ -88,7 +108,7 @@
               </a>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
