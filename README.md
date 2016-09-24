@@ -16,17 +16,19 @@ This is a simple To-Do application which helps us to save notes and track things
 
 ## Usage
 
-1. Clone this repository at required location.  
+1. Make sure that you have npm installed.
 
-2. Then install the requirements mentioned in ```package.json```.
+2. Clone this repository at required location.  
+
+3. Then install the requirements mentioned in ```package.json```.
 	```
 	npm install  
 	``` 
 
-3. Start running the application by giving command,
+4. Start running the application by giving command,
 	```
 	node server.js  
 	```
 from the root directory.
 
-4. Now the application is serving at port 8888. 
+5. Now the application is serving at port 8888. 
