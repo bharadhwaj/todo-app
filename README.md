@@ -9,6 +9,11 @@ This is a simple To-Do application which helps us to save notes and track things
 * User can mark the cards as completed.
 * User can delete cards.
 
+## Future Improvements
+
+* Edit the card.
+* Set expiry time.
+
 ## Usage
 
 1. Clone this repository at required location.  
