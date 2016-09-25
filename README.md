@@ -2,6 +2,8 @@
 
 This is a simple To-Do application which helps us to save notes and track things.
 
+Please visit http://todo-card.herokuapp.com/ to see the live app.
+
 
 ## Current features
 
